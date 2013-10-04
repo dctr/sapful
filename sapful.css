@@ -1,0 +1,46 @@
+body {
+	background-color: #ccc;
+	font-size: 1.3em;
+	text-align: center;
+}
+
+h1 {
+	font-size: 1.9em;
+}
+
+#sapful {
+	border: 1px solid #333;
+	border-radius: 5px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 5px;
+	width: 400px;
+}
+
+#sapful > * {
+	display: block;
+	font-size: 0.8em;
+	margin: 5px;
+	width: 387px;
+}
+
+#sapfulAbortButton, #sapfulUploadButton {
+	display: inline-block;
+	width: 187px;
+}
+
+#sapfulInfo {
+	font-size: 1em;
+}
+
+#sapfulProgress {
+	height: 1.3em;
+}
+
+/* BEGIN SAPFUL */
+#sapful .hidden {
+	display: none;
+	visibility: hidden;
+}
+/* END SAPFUL */

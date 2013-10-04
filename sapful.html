@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+	<head>
+		<link rel="stylesheet" href="sapful.css" />
+		<meta charset="UTF-8" />
+		<title>Genitopia / SAPFUL</title>
+	</head>
+	<body>
+		<h1>Welcome to Sapful</h1>
+		<p>The Simple Ajax and Php File UpLoader uploads any file onto genitopia.org's <a href="/files" target="_blank">file storage</a>.</p>
+		<!-- BEGIN SAPFUL -->
+		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data" id="sapful" method="POST">
+			<input type="hidden" name="MAX_FILE_SIZE" value="100000000" />
+			<input id="sapfulUploadFiles" name="sapfulUploadFiles" type="file" />
+			<input id="sapfulUploadButton" name="submit" type="submit" value="Upload" />
+			<input id="sapfulAbortButton" name="reset" type="reset" value="Abort" />
+			<progress class="hidden" id="sapfulProgress" value="0"></progress>
+			<span id="sapfulInfo"><?php echo $status; ?></span>
+			<script src="sapful.js"></script>
+		</form>
+		<!-- END SAPFUL -->
+		<p>If you upload a file named as one already in place, the old one gets overwritten.</p>
+	</body>
+</html>

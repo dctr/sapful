@@ -1,0 +1,25 @@
+	# Sapful
+	
+	Alias /sapful /usr/local/share/sapful
+	Alias /files /var/local/lib/sapful
+
+	<Directory /usr/local/share/sapful>
+		Options none
+		AllowOverride None
+		Order allow,deny
+		allow from all
+		AuthType Basic
+		AuthName "Genitopia / Sapful"
+		AuthUserFile /etc/apache2/htpasswd/laura+david
+		Require valid-user
+		php_value upload_max_filesize 100M
+		php_value post_max_size 100M
+	</Directory>
+
+	<Directory /var/local/lib/sapful>
+		Options Indexes
+		AllowOverride None
+		Order allow,deny
+		allow from all
+		php_flag engine Off
+	</Directory>
