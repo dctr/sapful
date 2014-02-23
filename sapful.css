@@ -8,6 +8,7 @@ h1 {
 	font-size: 1.9em;
 }
 
+/* BEGIN SAPFUL */
 #sapful {
 	border: 1px solid #333;
 	border-radius: 5px;
@@ -38,8 +39,7 @@ h1 {
 	height: 1.3em;
 }
 
-/* BEGIN SAPFUL */
-#sapful .hidden {
+.sapfulHidden {
 	display: none;
 	visibility: hidden;
 }

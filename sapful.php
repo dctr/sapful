@@ -1,4 +1,6 @@
 <?php
+require_once('sapful.config.php');
+
 if (isset($_FILES['sapfulUploadFiles'])) {
 	// todo: verify file name for bad chars
 	move_uploaded_file($_FILES['sapfulUploadFiles']['tmp_name'], DESTDIR . basename($_FILES['sapfulUploadFiles']['name']));

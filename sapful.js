@@ -18,7 +18,7 @@
 	progress.className= '';
 
 	abort = function () {
-		if(xhr instanceof XMLHttpRequest) {
+		if (xhr instanceof XMLHttpRequest) {
 			xhr.abort();
 			// Reset XHR, so abort does nothing anymore.
 			xhr = null;
@@ -35,9 +35,9 @@
 			info.innerHTML = 'File not found';
 			return false;
 		}
-		
+
 		info.innerHTML = 'Uploading';
-		
+
 		form = new FormData();
 		form.append('sapfulUploadFiles', file);
 
