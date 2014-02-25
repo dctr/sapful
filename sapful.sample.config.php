@@ -10,4 +10,11 @@
   // Maximum file size in byte declared in the HTML.
   // Ensure, that php's file size limit is at least this value (maybe through htaccess).
   define('MAX_FILE_SIZE', 100000000);
+
+  // Localization of information strings.
+  define('SAPFUL_CANCLED', 'Cancled.');
+  define('SAPFUL_ERROR', 'Error!');
+  define('SAPFUL_FINISHED', 'Finished!');
+  define('SAPFUL_UPLOADING', 'Uploading...');
+  define('SAPFUL_READY', 'Ready!');
 ?>

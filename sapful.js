@@ -3,28 +3,56 @@
 
 /**
  * @author David Christ <dch_dev@genitopia.org>
- * @version 1.0
+ * @version 1.1
  */
 
 (function () {
 	'use strict';
 
-	var abort, info, progress, upload, xhr;
+	var cancel, infoElements, progress, showInfo, upload, xhr;
 
-	info = document.getElementById('sapfulInfo');
+	infoElements = [
+		'sapfulInfoPHPStatus',
+		'sapfulInfoCancled',
+		'sapfulInfoError',
+		'sapfulInfoFinished',
+		'sapfulInfoUploading',
+		'sapfulInfoReady'
+	];
+
 	progress = document.getElementById('sapfulProgress');
 
-	// If JavaScript is execudet, show dynamic elements.
-	progress.className= '';
+	// If JavaScript is executed, show dynamic progtess bar.
+	progress.style.display = '';
+	progress.style.visibility = '';
 
-	abort = function () {
+	cancel = function () {
 		if (xhr instanceof XMLHttpRequest) {
 			xhr.abort();
 			// Reset XHR, so abort does nothing anymore.
 			xhr = null;
 		}
 		progress.value = 0;
-		info.innerHTML = 'Ready';
+		showInfo('sapfulInfoCancled');
+	};
+
+	showInfo = function(elementName) {
+		var element;
+
+		element = document.getElementById(elementName);
+
+		for (e in infoElements) {
+			if infoElements.hasOwnProperty(e) {
+				if (elementName === infoElements[e]) {
+					element.style.display = '';
+					element.style.visibility = '';
+				}
+				else {
+					element.style.display = 'none';
+					element.style.visibility = 'hidden';
+				}
+			}
+		}
 	};
 
 	upload = function () {
@@ -32,11 +60,11 @@
 
 		file = document.getElementById('sapfulUploadFiles').files[0];
 		if (!file) {
-			info.innerHTML = 'File not found';
+			showInfo('sapfulInfoError');
 			return false;
 		}
 
-		info.innerHTML = 'Uploading';
+		showInfo('sapfulInfoUploading');
 
 		form = new FormData();
 		form.append('sapfulUploadFiles', file);
@@ -44,17 +72,17 @@
 		xhr = new XMLHttpRequest();
 
 		xhr.onabort = function (e) {
-			info.innerHTML = 'Aborted';
-			abort();
+			cancel();
+			showInfo('sapfulInfoCancled');
 		}
 
 		xhr.onerror = function (e) {
-			info.innerHTML = 'Error';
-			abort();
+			cancel();
+			showInfo('sapfulInfoError');
 		}
 
 		xhr.onload = function (e) {
-			info.innerHTML = 'Done';
+			showInfo('sapfulInfoFinished');
 			progress.value = 0;
 			// Reset XHR, so abort does nothing anymore.
 			xhr = null;
@@ -73,7 +101,7 @@
 		return false;
 	};
 
-	document.getElementById('sapfulAbortButton').onclick = abort;
+	document.getElementById('sapfulAbortButton').onclick = cancel;
 	document.getElementById('sapfulUploadButton').onclick = upload;
 }());
 

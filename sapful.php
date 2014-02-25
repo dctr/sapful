@@ -1,18 +1,40 @@
 <?php
+// Load config.
 require_once('sapful.config.php');
 
+// Do the magic.
 if (isset($_FILES['sapfulUploadFiles'])) {
-	// todo: verify file name for bad chars
-	move_uploaded_file($_FILES['sapfulUploadFiles']['tmp_name'], DESTDIR . basename($_FILES['sapfulUploadFiles']['name']));
+  // Escape filename.
+  $destfile = preg_replace(
+    '/[^\w\d _\-]/',
+    '_',
+    basename($_FILES['sapfulUploadFiles']['name']
+  );
 
-	// If the post field exist, the form was submited directly (not with AJAX) and a redirect to page should be done.
+  // Move file to destination.
+	$success = move_uploaded_file(
+    $_FILES['sapfulUploadFiles']['tmp_name'],
+    DESTDIR . '/' . $destfile)
+  );
+
+	// If the post field "submit" exist, the form was submited directly (not via JS).
 	if (isset($_POST['submit'])) {
-		$status = 'Done';
-		require('sapful.html');
+    // In this case, we need to display the template with the needed status.
+    if ($success)
+		  $status = SAPFUL_FINISHED;
+    else
+      $status = SAPFUL_ERROR;
+
+    require_once('sapful.html');
 	}
+  else {
+    // Else we give a JSON response, parsable by JS.
+    print('{"sapfulUploadSuccess": ' . ($success?'true':'false') . '}')
+  }
 }
 else {
-	$status = 'Ready';
-	require('sapful.html');
+  // Just load template in ready state.
+	$status = SAPFUL_READY;
+  require_once('sapful.html');
 }
 ?>

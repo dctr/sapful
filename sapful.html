@@ -4,8 +4,15 @@
 	<input id="sapfulUploadFiles" name="sapfulUploadFiles" type="file" />
 	<input id="sapfulUploadButton" name="submit" type="submit" value="Upload" />
 	<input id="sapfulAbortButton" name="reset" type="reset" value="Abort" />
-	<progress class="sapfulHidden" id="sapfulProgress" value="0"></progress>
-	<span id="sapfulInfo"><?php echo $status; ?></span>
+	<progress id="sapfulProgress" style="display: none; visibility: hidden;" value="0"></progress>
+	<span id="sapfulInfo">
+    <span id="sapfulInfoPHPStatus"><?php echo $status; ?></span>
+    <span id="sapfulInfoCancled" style="display: none; visibility: hidden;"><?php echo SAPFUL_CANCLED; ?></span>
+    <span id="sapfulInfoError" style="display: none; visibility: hidden;"><?php echo SAPFUL_ERROR; ?></span>
+    <span id="sapfulInfoFinished" style="display: none; visibility: hidden;"><?php echo SAPFUL_FINISHED; ?></span>
+    <span id="sapfulInfoUploading" style="display: none; visibility: hidden;"><?php echo SAPFUL_UPLOADING; ?></span>
+    <span id="sapfulInfoReady" style="display: none; visibility: hidden;"><?php echo SAPFUL_READY; ?></span>
+  </span>
 	<script src="sapful.js"></script>
 </form>
 <!-- END SAPFUL -->
