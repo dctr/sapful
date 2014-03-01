@@ -1,0 +1,32 @@
+# Sapful - Usage sample server config (for Apache)
+# @author David Christ <dch_dev@genitopia.org>
+# @version 1.1
+
+# Where the website ressources are.
+Alias /sapful /usr/local/share/sapful
+# (optional) SAPFUL_DESTDIR where the files get uploaded to.
+Alias /files /var/local/lib/sapful
+
+<Directory /usr/local/share/sapful>
+	Options none
+	AllowOverride None
+	Order allow,deny
+	allow from all
+	AuthType Basic
+	AuthName "Genitopia / Sapful"
+	AuthUserFile /etc/apache2/htpasswd/laura+david
+	Require valid-user
+	# Should mirror SAPFUL_MAX_FILE_SIZE
+	php_value upload_max_filesize 100M
+	php_value post_max_size 100M
+</Directory>
+
+# (optional) SAPFUL_DESTDIR allow viewing the uploaded files.
+<Directory /var/local/lib/sapful>
+	Options Indexes
+	AllowOverride None
+	Order allow,deny
+	allow from all
+	# Prevent users from uplaoding PHP scripts (maybe add for other scripts too).
+	php_flag engine Off
+</Directory>

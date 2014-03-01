@@ -1,6 +1,11 @@
-<!-- BEGIN SAPFUL -->
-<form action="<?php echo UL_HANDLER; ?>" enctype="multipart/form-data" id="sapful" method="POST">
-	<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo MAX_FILE_SIZE; ?>" />
+<!--
+Sapful - Server HTML snippet
+@author David Christ <dch_dev@genitopia.org>
+@version 1.1
+-->
+<!-- BEGIN SAPFUL SNIPPET -->
+<form action="<?php echo SAPFUL_UL_HANDLER; ?>" enctype="multipart/form-data" id="sapful" method="POST">
+	<input name="MAX_FILE_SIZE" type="hidden" value="<?php echo SAPFUL_MAX_FILE_SIZE; ?>" />
 	<input id="sapfulUploadFiles" name="sapfulUploadFiles" type="file" />
 	<input id="sapfulUploadButton" name="submit" type="submit" value="Upload" />
 	<input id="sapfulAbortButton" name="reset" type="reset" value="Abort" />
@@ -15,4 +20,4 @@
   </span>
 	<script src="sapful.js"></script>
 </form>
-<!-- END SAPFUL -->
+<!-- END SAPFUL SNIPPET -->

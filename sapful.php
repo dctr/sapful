@@ -1,10 +1,16 @@
 <?php
+/**
+ * Sapful - Server PHP
+ * @author David Christ <dch_dev@genitopia.org>
+ * @version 1.1
+ */
+
 // Load config.
 require_once('sapful.config.php');
 
-// Do the magic.
+// Check if a file was uploaded.
 if (isset($_FILES['sapfulUploadFiles'])) {
-  // Escape filename.
+  // Escape filename. Only allow word, digit, space, underscore, and dash chars.
   $destfile = preg_replace(
     '/[^\w\d _\-]/',
     '_',
@@ -14,12 +20,13 @@ if (isset($_FILES['sapfulUploadFiles'])) {
   // Move file to destination.
 	$success = move_uploaded_file(
     $_FILES['sapfulUploadFiles']['tmp_name'],
-    DESTDIR . '/' . $destfile)
+    SAPFUL_DESTDIR . '/' . $destfile)
   );
 
-	// If the post field "submit" exist, the form was submited directly (not via JS).
+	// If the post field "submit" exist, the submit action of the form triggered
+  // the upload instead of the JavaScript.
 	if (isset($_POST['submit'])) {
-    // In this case, we need to display the template with the needed status.
+    // In this case, the complete website should be rendered.
     if ($success)
 		  $status = SAPFUL_FINISHED;
     else
@@ -28,12 +35,12 @@ if (isset($_FILES['sapfulUploadFiles'])) {
     require_once('sapful.html');
 	}
   else {
-    // Else we give a JSON response, parsable by JS.
+    // Else we give a JSON response to the XMLHttpRequest.
     print('{"sapfulUploadSuccess": ' . ($success?'true':'false') . '}')
   }
 }
 else {
-  // Just load template in ready state.
+  // Display the site with "ready for upload" status.
 	$status = SAPFUL_READY;
   require_once('sapful.html');
 }

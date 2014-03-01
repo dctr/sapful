@@ -1,4 +1,9 @@
 <!doctype html>
+<!--
+Sapful - Usage sample HTML/PHP
+@author David Christ <dch_dev@genitopia.org>
+@version 1.1
+-->
 <html>
   <head>
     <link rel="stylesheet" href="index.css" />

@@ -1,7 +1,7 @@
-/*jslint browser: true, es5: true, indent: 2, node: true, nomen: true, todo: true */
-/*global define, console */
+/*jslint browser: true, es5: true, indent: 2, nomen: true, todo: true */
 
 /**
+ * Sapful - Client JavaScript
  * @author David Christ <dch_dev@genitopia.org>
  * @version 1.1
  */
@@ -11,6 +11,7 @@
 
 	var cancel, infoElements, progress, showInfo, upload, xhr;
 
+	// The span elements in the HTML snippet containing the status messages.
 	infoElements = [
 		'sapfulInfoPHPStatus',
 		'sapfulInfoCancled',
@@ -20,12 +21,14 @@
 		'sapfulInfoReady'
 	];
 
+	// The dynamic progress bar.
 	progress = document.getElementById('sapfulProgress');
 
-	// If JavaScript is executed, show dynamic progtess bar.
+	// If JavaScript is executed, show the dynamic progress bar.
 	progress.style.display = '';
 	progress.style.visibility = '';
 
+	// Function associated to the cancel button in the HTML snippet.
 	cancel = function () {
 		if (xhr instanceof XMLHttpRequest) {
 			xhr.abort();
@@ -36,6 +39,7 @@
 		showInfo('sapfulInfoCancled');
 	};
 
+	// This function makes one of the status messages in the HTML snippet visible.
 	showInfo = function(elementName) {
 		var element;
 
@@ -55,6 +59,7 @@
 		}
 	};
 
+	// The function assiciated with the submit button.
 	upload = function () {
 		var file, form;
 
@@ -84,23 +89,25 @@
 		xhr.onload = function (e) {
 			showInfo('sapfulInfoFinished');
 			progress.value = 0;
-			// Reset XHR, so abort does nothing anymore.
+			// Reset XHR, so the cancel function does nothing anymore.
 			xhr = null;
 		}
 
 		xhr.upload.onprogress = function (e) {
-			info.innerHTML = Math.round(100 * e.loaded / e.total) + ' %';
+			// someTextStatus.innerHTML = Math.round(100 * e.loaded / e.total) + ' %';
 			progress.value = e.loaded / e.total;
 		}
 
 		xhr.open('POST', document.getElementById('sapful').action);
 		xhr.send(form);
 
-		// Prevent form from being submited.
-		// If JavaScript is enabled, the upload is done via XHR, if it is disabled, this never gets executed.
+		// Prevent the form from being submited.
+		// If JavaScript is enabled, the upload is done via XMLHttpRequest.
+		// If it is disabled, the original form gets submitted.
 		return false;
 	};
 
+	// Register event handlers.
 	document.getElementById('sapfulAbortButton').onclick = cancel;
 	document.getElementById('sapfulUploadButton').onclick = upload;
 }());
